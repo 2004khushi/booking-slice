@@ -1,5 +1,5 @@
 import { supabase } from './db'
-import { VALID_TRANSITIONS } from './bookingStateMachine'
+import { VALID_TRANSITIONS, ADMIN_ALLOWED_TRANSITIONS } from './bookingStateMachine'
 import { Booking, ActorType, BookingStatus } from '@/types/booking'
 
 
@@ -42,6 +42,13 @@ export async function transitionBooking({
             `Invalid transition from ${booking.status} to ${nextStatus}`
         )
     }
+
+    if (actorType === 'admin' && !force) {
+        if (!ADMIN_ALLOWED_TRANSITIONS[booking.status].includes(nextStatus)) {
+            throw new Error('Admin cannot transition booking from this state');
+        }
+    }
+
 
 
     const rpcPayload: any = {
