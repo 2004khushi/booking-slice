@@ -14,3 +14,13 @@ export const VALID_TRANSITIONS: Record<BookingStatus, BookingStatus[]> = {
     failed: [],
     no_show: []
 }
+
+export const ADMIN_ALLOWED_TRANSITIONS: Record<BookingStatus, BookingStatus[]> = {
+    pending: ['cancelled'],
+    assigned: ['cancelled', 'no_show'],
+    in_progress: ['cancelled', 'failed'],
+    failed: ['completed'],
+    completed: [],
+    cancelled: [],
+    no_show: [],
+}
