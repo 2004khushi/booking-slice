@@ -2,20 +2,24 @@ import { supabase } from './db'
 import { VALID_TRANSITIONS } from './bookingStateMachine'
 import { Booking, ActorType, BookingStatus } from '@/types/booking'
 
+
 interface TransitionParams {
     bookingId: string
     nextStatus: BookingStatus
     actorType: ActorType
     actorId?: string
     metadata?: Record<string, any>
+    force?: boolean
 }
+
 
 export async function transitionBooking({
                                             bookingId,
                                             nextStatus,
                                             actorType,
                                             actorId,
-                                            metadata = {}
+                                            metadata = {},
+                                            force = false
                                         }: TransitionParams) {
     const { data, error } = await supabase
         .from('bookings')
@@ -30,11 +34,15 @@ export async function transitionBooking({
     const booking = data as Booking
 
 
-    if (!VALID_TRANSITIONS[booking.status].includes(nextStatus)) {
+    if (
+        !force &&
+        !VALID_TRANSITIONS[booking.status].includes(nextStatus)
+    ) {
         throw new Error(
             `Invalid transition from ${booking.status} to ${nextStatus}`
         )
     }
+
 
     const rpcPayload: any = {
         booking_id: bookingId,
@@ -54,5 +62,15 @@ export async function transitionBooking({
     )
 
     if (rpcError) throw rpcError
+
+
+    const updated = await supabase
+        .from('bookings')
+        .select('*')
+        .eq('id', bookingId)
+        .single()
+
+    return updated.data
+
 
 }

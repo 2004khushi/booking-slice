@@ -5,6 +5,7 @@ export type BookingStatus =
     | 'completed'
     | 'cancelled'
     | 'failed'
+    | 'no_show'
 
 export type ActorType = 'customer' | 'provider' | 'admin' | 'system'
 
