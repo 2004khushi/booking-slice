@@ -29,8 +29,7 @@ export async function POST(
             bookingId,
             nextStatus: status,
             actorType: 'admin',
-            metadata: { reason },
-            force: true
+            metadata: { reason }
         })
 
         return NextResponse.json({ booking })

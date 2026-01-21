@@ -134,6 +134,7 @@ Admin can:
 - Override booking status
 - Cancel bookings
 - Mark no-shows
+- Booking completion is system-driven, triggered either by provider actions, automated rules, or manual admin intervention. For this assignment, admin override is used to simulate system completion.
 
 > UI dynamically disables invalid actions based on booking state
 
