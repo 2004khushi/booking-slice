@@ -34,7 +34,12 @@ export async function transitionBooking({
     const booking = data as Booking
 
 
-    if (
+    if (actorType === 'admin' && !force) {
+        if (!ADMIN_ALLOWED_TRANSITIONS[booking.status].includes(nextStatus)) {
+            throw new Error('Admin cannot transition booking from this state');
+        }
+    }
+    else if (
         !force &&
         !VALID_TRANSITIONS[booking.status].includes(nextStatus)
     ) {
@@ -43,11 +48,7 @@ export async function transitionBooking({
         )
     }
 
-    if (actorType === 'admin' && !force) {
-        if (!ADMIN_ALLOWED_TRANSITIONS[booking.status].includes(nextStatus)) {
-            throw new Error('Admin cannot transition booking from this state');
-        }
-    }
+
 
 
 

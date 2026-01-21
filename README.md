@@ -155,6 +155,87 @@ Open the application at:
 http://localhost:3000
 ```
 
+### 🖥️ UI Screens Mapping
+
+This project includes simple but complete UI screens that satisfy the assignment requirements.
+Each screen is mapped to a concrete route for clarity and easy verification.
+
+## 1️⃣ Screen to Create a Booking
+
+***URL:***
+
+```bash 
+http://localhost:3000
+```
+Description:
+- Landing page for the application 
+- Allows a customer to create a new booking request 
+- On successful creation, returns a booking ID that can be used to track the booking
+
+Purpose:
+- Demonstrates customer-initiated booking creation 
+- Entry point to the booking lifecycle
+
+### 2️⃣ Screen to View / Track Booking Status
+
+***URL:***
+
+```bash 
+http://localhost:3000/bookings/[bookingId]
+```
+
+
+
+***Example:***
+```bash
+http://localhost:3000/bookings/8acd5a5d-7652-43d3-bc7a-cc1784b1db13
+```
+
+
+
+Description:
+- Displays the current status of a booking
+- Shows assigned provider (if any)
+- Displays a full timeline of state transitions (event log)
+
+Purpose:
+- Provides observability into booking lifecycle
+- Allows users and ops to track progress and history
+- Satisfies the “view booking status” requirement
+
+***Note:***
+***Status updates are performed through role-specific actions (system, provider, admin), while this screen focuses on visibility and auditability.***
+
+
+### 3️⃣ Admin / Ops Panel
+
+***important***
+-> can change the setting of admin to do any abstract thing; but I have restricted it to some constraints.
+If want to give all the access then can just remove this line->
+```bash 
+if (!ADMIN_ALLOWED_TRANSITIONS[booking.status].includes(nextStatus)) {
+throw new Error('Admin cannot transition booking from this state');
+}
+ ```
+from ***/lib/bookingService.ts***
+
+***URL:***
+```bash
+http://localhost:3000/admin
+```
+***Description:***
+- Internal operations panel for managing bookings
+- Allows admin / ops to:
+- Assign a provider
+- Override booking status (completed, cancelled, failed)
+- Mark provider no-show
+- Cancel bookings manually
+- UI guardrails disable invalid actions for terminal states
+
+***Purpose:***
+- Demonstrates manual intervention and operational control
+- Supports recovery from edge cases and failures
+- Fulfills the “admin / ops panel” requirement
 
 ### 6. Useful URLs
    URL	Purpose

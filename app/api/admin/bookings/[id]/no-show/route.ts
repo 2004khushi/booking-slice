@@ -18,7 +18,7 @@ export async function POST(
         const booking = await transitionBooking({
             bookingId,
             nextStatus: 'no_show',
-            actorType: 'system',
+            actorType: 'admin',
             force: true,
             metadata: {
                 reason: 'Provider did not arrive within SLA'

@@ -16,9 +16,9 @@ export const VALID_TRANSITIONS: Record<BookingStatus, BookingStatus[]> = {
 }
 
 export const ADMIN_ALLOWED_TRANSITIONS: Record<BookingStatus, BookingStatus[]> = {
-    pending: ['cancelled'],
-    assigned: ['cancelled', 'no_show'],
-    in_progress: ['cancelled', 'failed','completed'],
+    pending: ['cancelled','failed','assigned','no_show'],
+    assigned: ['cancelled', 'no_show','failed'],
+    in_progress: ['cancelled', 'failed','completed','no_show'],
     failed: ['completed'],
     completed: [],
     cancelled: [],

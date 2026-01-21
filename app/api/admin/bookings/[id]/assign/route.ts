@@ -28,7 +28,7 @@ export async function POST(
         const booking = await transitionBooking({
             bookingId,
             nextStatus: 'assigned',
-            actorType: 'system',
+            actorType: 'admin',
             actorId: providerId,
             metadata: { provider_id: providerId }
         })
