@@ -54,6 +54,8 @@ Booking updates are role-driven:
 - Customers can only create and cancel
 - Providers can accept or reject
 - Admin / Ops can override states
+- Providers can accept or reject assigned bookings
+
 
 **Why:**
 - Prevents unauthorized state mutation
@@ -68,7 +70,7 @@ Booking updates are role-driven:
 ### 5. Admin Override with Guardrails
 
 **Decision:**  
-Admin overrides are allowed, but terminal states are protected from invalid actions such as provider reassignment.
+Admin overrides are allowed for operational recovery, but normal lifecycle transitions are enforced by the state machine.
 
 **Why:**
 - Allows operational recovery
@@ -99,7 +101,7 @@ The UI is intentionally simple and functional.
 - Provider availability matching is mocked
 - Payments, pricing, and notifications are out of scope
 - Single-region deployment is assumed
-
+- Provider rejection unassigns the booking and requires re-assignment before acceptance
 ---
 
 ## ▶️ How to Run the Project Locally

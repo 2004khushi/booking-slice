@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
     try {
-        const body = await req.json()
+        const body = await req.json().catch(() => ({}));
         const { customer_id, scheduled_at } = body
 
         if (!customer_id) {
