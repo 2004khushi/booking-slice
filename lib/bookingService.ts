@@ -38,6 +38,7 @@ export async function transitionBooking({
         if (!ADMIN_ALLOWED_TRANSITIONS[booking.status].includes(nextStatus)) {
             throw new Error('Admin cannot transition booking from this state');
         }
+        //u can comment or remove it out if u want admin to do any transition!
     }
     else if (
         !force &&
